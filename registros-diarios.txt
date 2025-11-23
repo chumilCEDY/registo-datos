@@ -1,0 +1,25 @@
+CREATE DATABASE registro_gastos;
+USE registro_gastos_avanzado;
+
+CREATE TABLE categorias (
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_categoria VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE gastos (
+    id_gasto INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE NOT NULL,
+    monto DECIMAL(10, 2) NOT NULL,
+    descripcion VARCHAR(255),
+    id_categoria INT,
+    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
+);
+
+INSERT INTO categorias (nombre_categoria) VALUES 
+('Comida'),
+('Transporte'),
+('Entretenimiento'),
+('Salud'),
+('Educación'),
+('Hogar'),
+('Otros');

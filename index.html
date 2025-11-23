@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Gastos Diarios</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 98%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background:#4a6491;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .form-container {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: #4a6491;
+            outline: none;
+            box-shadow: 0 0 5px rgba(74, 100, 145, 0.3);
+        }
+        
+        .btn {
+            background: #4a6491;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+        }
+        
+        
+        .expenses-summary {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .expenses-summary h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+        
+        .expense-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .expense-item:last-child {
+            border-bottom: none;
+        }
+        
+        .expense-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .expense-amount {
+            font-weight: bold;
+            color: #000000;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 600px) {
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .form-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Registro de Gastos Diarios</h1>
+        </header>
+        
+        <div class="content">
+            <div class="form-container">
+                <h2>Nuevo Gasto</h2>
+                <form id="expenseForm">
+                    <div class="form-group">
+                        <label for="fecha">Fecha:</label>
+                        <input type="date" id="fecha" name="fecha" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="monto">Monto ($):</label>
+                        <input type="number" id="monto" name="monto" min="0" step="0.01" placeholder="0.00" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="descripcion">Descripción:</label>
+                        <input type="text" id="descripcion" name="descripcion" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="categoria">Categoría:</label>
+                        <select id="categoria" name="categoria" required>
+                            <option value="">Selecciona una categoría</option>
+                            <option value="Comida">Comida</option>
+                            <option value="Transporte">Transporte</option>
+                            <option value="Entretenimiento">Entretenimiento</option>
+                            <option value="Salud">Salud</option>
+                            <option value="Educación">Educación</option>
+                            <option value="Hogar">Hogar</option>
+                            <option value="Otros">Otros</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn">Registrar</button>
+                </form>
+            </div>
+            
+            <div class="expenses-summary">
+                <h3>Últimos Gastos Registrados</h3>
+                <div id="expensesList">
+                    <div class="expense-item">
+                        <div>
+                            <div class="expense-date">15/01/2024</div>
+                            <div>Almuerzo restaurante</div>
+                            <div class="expense-category">Comida</div>
+                        </div>
+                        <div class="expense-amount">$25.50</div>
+                    </div>
+                    <div class="expense-item">
+                        <div>
+                            <div class="expense-date">15/01/2024</div>
+                            <div>Gasolina moto</div>
+                            <div class="expense-category">Transporte</div>
+                        </div>
+                        <div class="expense-amount">$12.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('expenseForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fecha = document.getElementById('fecha').value;
+            const monto = parseFloat(document.getElementById('monto').value).toFixed(2);
+            const descripcion = document.getElementById('descripcion').value;
+            const categoria = document.getElementById('categoria').value;
+            const fechaFormateada = new Date(fecha).toLocaleDateString('es-ES');
+            const expenseItem = document.createElement('div');
+            expenseItem.className = 'expense-item';
+            expenseItem.innerHTML = `
+                <div>
+                    <div class="expense-date">${fechaFormateada}</div>
+                    <div>${descripcion}</div>
+                    <div class="expense-category">${categoria}</div>
+                </div>
+                <div class="expense-amount">$${monto}</div>
+            `;
+            document.getElementById('expensesList').prepend(expenseItem);
+            document.getElementById('expenseForm').reset();
+            alert('¡Gasto registrado exitosamente!');
+        });
+        
+        document.getElementById('fecha').valueAsDate = new Date();
+    </script>
+</body>
+</html>
